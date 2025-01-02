@@ -9,7 +9,7 @@ const SALT_LENGTH = 12;
 
 router.post('/signup', async (req, res) => {
     try {
-        const { username, password, role = 'student', createdBy } = req.body;  // Default role to 'student' if not provided
+        const { username, password, role = 'student', createdBy, assignedTeacher } = req.body;  // Default role to 'student' if not provided
         
         // Validate input
         if (!username || !password || !role) {
@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
             newUserFields.createdBy = createdBy;
         }
 
-        if (role !== "teacher") {
+        if (role === "student") {
             if (!assignedTeacher) {
                 return res.status(400).json({ error: 'assignedTeacher field is required for student users.' });
             }
@@ -60,13 +60,13 @@ router.post('/signin', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username });
         if (user && bcrypt.compareSync(req.body.password, user.hashedPassword)) {
-            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.status(200).json({ token });
         } else {
             res.status(401).json({ error: 'Invalid username or password.' });
         }
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 

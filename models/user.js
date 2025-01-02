@@ -24,11 +24,22 @@ const userSchema = new mongoose.Schema(
                 return this.role !== "admin"; // Not required for admin users
             },
         },
-        assignedTeacher: {
+        /*assignedTeacher: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",    // Reference to the teacher for student users
             required: function () {
-                return this.role === "student"; // Only required for students
+                return this.role === "student"; // Only required for students*/
+
+                assignedTeacher: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "User", // Reference to the teacher for student users
+                    validate: {
+                        validator: function (value) {
+                            // Check if the field is required and ensure it has a value
+                            return this.role !== "student" || !!value;
+                        },
+                        message: "A student must be assigned a teacher."
+              
             },
         },
     },

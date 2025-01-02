@@ -36,6 +36,13 @@ router.post('/signup', async (req, res) => {
             newUserFields.createdBy = createdBy;
         }
 
+        if (role !== "teacher") {
+            if (!assignedTeacher) {
+                return res.status(400).json({ error: 'assignedTeacher field is required for student users.' });
+            }
+            newUserFields.assignedTeacher = assignedTeacher;
+        }
+
         // Create new user
         const user = await User.create(newUserFields);
 

@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
         },
         assignedTeacher: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User", // Reference to the teacher for student users
+            ref: "User",    // Reference to the teacher for student users
             required: function () {
                 return this.role === "student"; // Only required for students
             },

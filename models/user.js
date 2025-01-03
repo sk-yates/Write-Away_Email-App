@@ -24,6 +24,13 @@ const userSchema = new mongoose.Schema(
                 return this.role !== "admin"; // Not required for admin users
             },
         },
+
+            /*assignedTeacher: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",    // Reference to the teacher for student users
+            required: function () {
+            return this.role === "student"; // Only required for students*/
+
         assignedTeacher: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User", // Reference to the teacher for student users
@@ -41,6 +48,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// Pre-save hook to ensure role is set before validation
 userSchema.pre('save', function(next) {
     if (!this.role) {
         this.role = 'student'; // Set default role to 'student' if role isn't provided (optional)
@@ -49,6 +57,7 @@ userSchema.pre('save', function(next) {
     next(); // Proceed with saving the document
 });
 
+// Prevent exposing hashedPassword when returning the user data
 userSchema.set("toJSON", {
     transform: (document, returnedObject) => {
         delete returnedObject.hashedPassword; // Prevent password exposure

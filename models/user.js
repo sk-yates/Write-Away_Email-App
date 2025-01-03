@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the user schema
 const userSchema = new mongoose.Schema(
     {
         username: {
@@ -26,8 +27,12 @@ const userSchema = new mongoose.Schema(
         assignedTeacher: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User", // Reference to the teacher for student users
-            required: function () {
-                return this.role === "student"; // Only required for students
+            validate: {
+                validator: function (value) {
+                    // Check if the field is required and ensure it has a value
+                    return this.role !== "student" || !!value;
+                },
+                message: "A student must be assigned a teacher."
             },
         },
     },
@@ -36,10 +41,19 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+userSchema.pre('save', function(next) {
+    if (!this.role) {
+        this.role = 'student'; // Set default role to 'student' if role isn't provided (optional)
+    }
+    console.log('Role in pre-save:', this.role); // Log to check the role
+    next(); // Proceed with saving the document
+});
+
 userSchema.set("toJSON", {
     transform: (document, returnedObject) => {
         delete returnedObject.hashedPassword; // Prevent password exposure
     },
 });
 
+// Export the model
 module.exports = mongoose.model("User", userSchema);

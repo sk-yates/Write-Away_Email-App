@@ -3,22 +3,32 @@ dotenv.config();
 
 const express = require('express');
 const app = express();
-
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
 
-mongoose.connection.on('connect', () => {
-    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
-});
+const testJWTRouter = require('./controllers/test-jwt');
+
+const usersRouter = require('./controllers/users');
 
 const emailsRouter = require('./controllers/emails.js');
 
+mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connection.on('connected', () => {
+    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+});
+
+
+
 app.use(express.json());
 
+
+
+// Routes go here
+app.use('/test-jwt', testJWTRouter);
+
+app.use('/users', usersRouter);
+
 app.use('/emails', emailsRouter);
-
-// Routes
-
 
 
 app.listen(3000, () => {

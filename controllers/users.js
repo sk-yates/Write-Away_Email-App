@@ -10,7 +10,7 @@ const SALT_LENGTH = 12;
 router.post('/signup', async (req, res) => {
     try {
         const { username, password, role = 'student', createdBy, assignedTeacher } = req.body;  // Default role to 'student' if not provided
-        
+
         // Validate input
         if (!username || !password || !role) {
             return res.status(400).json({ error: 'Username, password, and role are required.' });

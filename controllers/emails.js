@@ -7,8 +7,6 @@ const router = express.Router();
 
 // ========= Protected Routes =========
 
-
-
 router.use(verifyToken);
 
 router.post('/', async (req, res) => {
@@ -22,5 +20,9 @@ router.post('/', async (req, res) => {
         res.status(500).json(error);
       }
 });
+
+// router.get('/', async (req, res) => {
+
+// });
 
 module.exports = router;

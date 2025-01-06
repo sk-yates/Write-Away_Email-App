@@ -1,0 +1,182 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #A26B72; /* Background color for the page */
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  /* Main Container for Rectangles */
+  .inbox-container {
+    display: flex;
+    flex-direction: column; /* Stack rectangles vertically */
+    align-items: flex-start; /* Align to the left */
+    position: relative;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Prevent overflowing */
+  }
+  
+  .left-rectangle {
+    position: absolute;
+    width: 342px;
+    height: calc(100% - 44px); /* Dynamically adjust height to fit within viewport */
+    top: 22px;
+    left: 26px;
+    background: rgba(217, 217, 217, 0.5); /* Background with 50% opacity */
+    border-radius: 30px;
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Space elements inside the rectangle */
+    padding-top: 50px; /* Add space at the top */
+    gap: 20px; /* Space between elements */
+    overflow: hidden; /* Ensure no content spills outside */
+  }
+  
+  /* Second Rectangle (Main Content Area) */
+  .main-rectangle {
+    position: absolute;
+    width: 861px;
+    height: calc(100% - 146px); /* Dynamically adjust height to fit within viewport */
+    top: 124px;
+    left: 393px;
+    background: rgba(217, 217, 217, 0.7); /* 70% opacity */
+    border-radius: 30px;
+    overflow: hidden; /* Prevent content overflow */
+  }
+  
+/* Header Rectangle (Already exists) */
+.header-rectangle {
+    position: absolute;
+    width: 686px;
+    height: 77px;
+    top: 22px;
+    left: 393px;
+    background: rgba(217, 217, 217, 0.3); /* 30% opacity */
+    border-radius: 70px;
+    display: flex;
+    align-items: center; /* Vertically center contents */
+    justify-content: flex-start; /* Align contents to the left */
+    padding-left: 20px; /* Add padding for spacing */
+  }
+  
+  /* Search Container */
+  .search-container {
+    display: flex;
+    align-items: center; /* Center icon and text vertically */
+    gap: 10px; /* Space between icon and text */
+  }
+  
+  /* Search Icon */
+  .search-icon {
+    width: 24px; /* Adjusted width */
+    height: 24px; /* Adjusted height */
+    cursor: pointer;
+  }
+  
+  /* Search Text */
+  .search-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.78px;
+    color: #FFFFFF; /* White text */
+    text-align: left;
+    cursor: pointer; /* Show pointer on hover */
+    text-decoration: none; /* Remove underline */
+  }
+
+  .top-ellipse {
+    position: absolute;
+    width: 67px;
+    height: 67px;
+    top: 27px;
+    left: 1187px;
+    background: #D9D9D9;
+    border-radius: 50%;
+  }
+  
+  /* Settings Icon */
+  .settings-icon {
+    position: absolute;
+    top: 48px;
+    left: 1150px;
+    width: 23px; /* Set to desired width */
+    height: 24px; /* Set to desired height */
+  }
+  
+  /* Ellipse */
+  .sidebar-ellipse {
+    width: 123px;
+    height: 123px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Compose Button */
+  .compose-button {
+    width: 180px;
+    height: 74px;
+    background: #FFFFFF; /* White background */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 16px;
+    font-weight: bold;
+    color: #A26B72; /* Text color */
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Menu Buttons Container */
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    width: 100%; /* Full width of the container */
+  }
+  
+  /* Menu Buttons */
+  .menu-button {
+    width: 203px;
+    height: 39px;
+    padding: 0; /* Remove extra padding to center the text */
+    background: rgba(217, 217, 217, 0.78); /* Default background for drafts/sent */
+    border-radius: 58px; /* Rounded corners */
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF; /* White text */
+    border: none;
+    cursor: pointer;
+    text-align: center; /* Horizontally center the text */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+  }
+  
+  /* Inbox Button (Active) */
+  .menu-button.active {
+    background: rgba(211, 206, 206, 0.28); /* Slightly lighter transparency */
+    border: 3px solid #FFFFFF; /* Border for active button */
+  }
+  
+  /* Drafts and Sent Buttons */
+  .menu-button:not(.active) {
+    background: rgba(211, 206, 206, 0.28); /* Background with lighter opacity */
+    color: #FFFFFF;
+  }

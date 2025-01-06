@@ -1,0 +1,161 @@
+html {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #A26B72; /* Match the exact background color */
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Container for the rectangle */
+  .home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Rectangle styling */
+  .home-rectangle {
+    width: 342px;
+    height: 528px;
+    background: rgba(217, 217, 217, 0.5); /* Slight transparency */
+    border-radius: 30px;
+    position: relative; /* Set as the relative parent */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 60px; /* Add space at the top */
+  }
+  
+  /* Ellipse */
+  .home-ellipse {
+    width: 123px;
+    height: 123px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    margin-bottom: 30px;
+  }
+  
+  /* Frame for buttons */
+  .home-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between buttons */
+    margin-top: 50px; /* Space between ellipse and buttons */
+  }
+  
+  /* Buttons */
+  .home-button {
+    width: 203px;
+    height: 39px;
+    background: rgba(211, 206, 206, 0.28); /* Slight transparency */
+    border: none;
+    border-radius: 58px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #ffff;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background: rgba(211, 206, 206, 0.5); /* Slightly darker on hover */
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Rectangle styling */
+  .login-rectangle {
+    width: 342px;
+    height: 528px;
+    background: rgba(217, 217, 217, 0.5); /* Slight transparency */
+    border-radius: 30px; /* Rounded corners for all sides */
+    position: relative; /* Relative to child elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden; /* Ensure child elements stay inside */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+  }
+  
+  /* Ellipse */
+  .login-ellipse {
+    width: 54px;
+    height: 54px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px; /* Adjust for spacing at the top */
+    left: 20px; /* Move ellipse to the left */
+  }
+  
+  /* Login Form */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px; /* Space between form elements */
+    margin-top: 100px; /* Space below the ellipse */
+    width: 80%; /* Form width relative to rectangle */
+  }
+  
+  /* Form Labels */
+  .form-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF; /* White text */
+    margin-bottom: 5px;
+  }
+  
+  /* Form Inputs */
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(211, 206, 206, 0.28); /* Slight transparency */
+    font-size: 14px;
+    color: #FFFFFF; /* White text for the input text */
+    outline: none;
+  }
+  
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4); /* White with 40% opacity */
+  }
+  
+  /* Button */
+  .login-button {
+    align-self: flex-end; /* Align button to the right */
+    padding: 10px 20px;
+    background: rgba(211, 206, 206, 0.28); /* Slight transparency */
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF; /* White text */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background: rgba(211, 206, 206, 0.5); /* Darker background on hover */
+  }

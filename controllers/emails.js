@@ -137,6 +137,16 @@ router.put('/:emailId/replies/:replyId', async (req, res) => {
   }
 });
 
+router.delete('/:emailId/replies/:replyId', async (req, res) => {
+  try {
+    const email = await Email.findById(req.params.emailId);
+    email.replies.remove({ _id: req.params.replyId });
+    await email.save();
+    res.status(200).json({ message: "Reply deleted", email })
+  } catch (error) {
+    res.status(500).json(error)
+  }
+});
 
 
 module.exports = router;

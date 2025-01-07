@@ -21,6 +21,17 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const emails = await Email.find({})
+      .populate('author')
+      .sort({ createdAt: 'desc' });
+    res.status(200).json(emails);
+  } catch (error) {
+    res.status(500).json(emails);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;

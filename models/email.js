@@ -17,6 +17,8 @@ const replySchema = new mongoose.Schema(
             required: true,
         },
 
+       
+
       author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },
     { timestamps: true }
@@ -38,6 +40,10 @@ const emailSchema = new mongoose.Schema(
         emailBody: {
             type: String,
             required: true,
+        }, 
+        
+        state: {
+            enum: ["inbox", "drafts", "sent"]
         },
 
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

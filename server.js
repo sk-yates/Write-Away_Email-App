@@ -3,6 +3,7 @@ dotenv.config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const testJWTRouter = require('./controllers/test-jwt');
 const usersRouter = require('./controllers/users');
@@ -16,6 +17,15 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 
+app.use(cors({
+    origin: 'http://localhost:5173', // Frontend URL
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: 'Content-Type, Authorization'
+}));
+
+app.get('/', (req, res) => {
+    res.send('Backend is working!');
+});
 
 
 // Routes go here
@@ -26,6 +36,6 @@ app.use('/users', usersRouter);
 app.use('/emails', emailsRouter);
 
 
-app.listen(3000, () => {
+app.listen(5000, () => {
     console.log('The express app is ready!');
 });

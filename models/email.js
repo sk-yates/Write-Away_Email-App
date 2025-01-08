@@ -41,6 +41,7 @@ const emailSchema = new mongoose.Schema(
         },
 
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        recipients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // New field
         replies: [replySchema]
     },
     { timestamps: true },

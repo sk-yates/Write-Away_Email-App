@@ -33,10 +33,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+// Student view of Reply - Show
+router.get('/:replyId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const reply = await Reply.findById(id).populate('author');
+    const { replyId } = req.params;
+    const reply = await Reply.findById(replyId).populate('author');
     if (!reply) {
       return res.status(404).json({ error: 'Student Reply not found' });
     }
@@ -47,11 +48,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+// Student view of Reply - Update
+router.put('/:replyId', async (req, res) => {
   try {
-    const { id } = req.params;
+    const { replyId } = req.params;
     const updatedReply = await Reply.findByIdAndUpdate(
-      id,
+      replyId,
       { $set: req.body },
       { new: true, runValidators: true }
     ).populate('author');
@@ -67,19 +69,20 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+// Student view of Reply - Update
+router.delete('/:replyId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const deletedEmail = await Email.findByIdAndDelete(id);
+    const { replyId } = req.params;
+    const deletedReply = await Reply.findByIdAndDelete(replyId);
 
-    if (!deletedEmail) {
-      return res.status(404).json({ error: 'Email not found' });
+    if (!deletedReply) {
+      return res.status(404).json({ error: 'Reply not found' });
     }
 
-    res.status(200).json({ message: 'Email deleted successfully', deletedEmail });
+    res.status(200).json({ message: 'Student Reply deleted successfully', deletedReply });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error while deleting the email' });
+    res.status(500).json({ error: 'Server error while deleting the Reply' });
   }
 });
 

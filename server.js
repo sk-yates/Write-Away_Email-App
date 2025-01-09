@@ -8,6 +8,7 @@ const cors = require('cors');
 const testJWTRouter = require('./controllers/test-jwt');
 const usersRouter = require('./controllers/users');
 const emailsRouter = require('./controllers/emails.js');
+const repliesRouter = require('./controllers/replies.js')
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -35,7 +36,9 @@ app.use('/users', usersRouter);
 
 app.use('/emails', emailsRouter);
 
+app.use('/replies', repliesRouter);
 
-app.listen(5000, () => {
+
+app.listen(3000, () => {
     console.log('The express app is ready!');
 });

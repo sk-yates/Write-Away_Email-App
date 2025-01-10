@@ -47,7 +47,7 @@ router.post('/signup', async (req, res) => {
         const user = await User.create(newUserFields);
 
         // Generate a JWT token
-        const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '8h' });
 
         // Respond with user and token
         res.status(201).json({ user, token });
@@ -60,7 +60,7 @@ router.post('/signin', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username });
         if (user && bcrypt.compareSync(req.body.password, user.hashedPassword)) {
-            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, { expiresIn: '8h' });
             res.status(200).json({ token });
         } else {
             res.status(401).json({ error: 'Invalid username or password.' });

@@ -1,6 +1,7 @@
 const express = require('express');
 const verifyToken = require('../middleware/verify-token.js');
 const Email = require('../models/email.js');
+const Reply = require('../models/reply.js')
 const router = express.Router();
 
 // ========== Public Routes ===========
@@ -29,6 +30,20 @@ router.get('/', async (req, res) => {
     res.status(200).json(emails);
   } catch (error) {
     res.status(500).json(emails);
+  }
+});
+
+// Teacher view - To find Replies tied to one email
+router.get('/:emailId/replies', async (req, res) => {
+  try {
+    const { emailId } = req.params;
+    console.log(req.params)
+    const replies = await Reply.find({ email: emailId })
+      .populate('author')
+      .sort({ createdAt: 'desc' });
+    res.status(200).json(replies);
+  } catch (error) {
+    res.status(500).json(replies);
   }
 });
 
@@ -82,71 +97,73 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/:emailId/replies', async (req, res) => {
-  try {
-    req.body.author = req.user._id;
-    const email = await Email.findById(req.params.emailId);
-    email.replies.push(req.body);
-    await email.save();
+// ----------------------------------------------------------------------------
 
-    const newReply = email.replies[email.replies.length - 1];
+// router.post('/:emailId/replies', async (req, res) => {
+//   try {
+//     req.body.author = req.user._id;
+//     const email = await Email.findById(req.params.emailId);
+//     email.replies.push(req.body);
+//     await email.save();
+
+//     const newReply = email.replies[email.replies.length - 1];
 
 
-    newReply._doc.author = req.user;
+//     newReply._doc.author = req.user;
 
 
-    res.status(201).json(newReply);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+//     res.status(201).json(newReply);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// });
 
-router.put('/:emailId/replies/:replyId', async (req, res) => {
-  try {
-    // Fetch the email
-    const email = await Email.findById(req.params.emailId);
-    if (!email) {
-      return res.status(404).json({ error: 'Email not found' });
-    }
+// router.put('/:emailId/replies/:replyId', async (req, res) => {
+//   try {
+//     // Fetch the email
+//     const email = await Email.findById(req.params.emailId);
+//     if (!email) {
+//       return res.status(404).json({ error: 'Email not found' });
+//     }
 
-    // Find the reply by ID
-    const reply = email.replies.id(req.params.replyId);
-    if (!reply) {
-      return res.status(404).json({ error: 'Reply not found' });
-    }
+//     // Find the reply by ID
+//     const reply = email.replies.id(req.params.replyId);
+//     if (!reply) {
+//       return res.status(404).json({ error: 'Reply not found' });
+//     }
 
-    // Update fields (only if provided in the request body)
-    if (req.body.replyTo !== undefined) {
-      reply.replyTo = req.body.replyTo;
-    }
-    if (req.body.replySubject !== undefined) {
-      reply.replySubject = req.body.replySubject;
-    }
-    if (req.body.replyBody !== undefined) {
-      reply.replyBody = req.body.replyBody;
-    }
+//     // Update fields (only if provided in the request body)
+//     if (req.body.replyTo !== undefined) {
+//       reply.replyTo = req.body.replyTo;
+//     }
+//     if (req.body.replySubject !== undefined) {
+//       reply.replySubject = req.body.replySubject;
+//     }
+//     if (req.body.replyBody !== undefined) {
+//       reply.replyBody = req.body.replyBody;
+//     }
 
-    // Save the email with the updated reply
-    await email.save();
+//     // Save the email with the updated reply
+//     await email.save();
 
-    // Respond with the updated reply
-    res.status(200).json({ message: 'Reply updated', updatedReply: reply });
-  } catch (error) {
-    console.error(error); // Log the error for debugging
-    res.status(500).json({ error: 'An unexpected error occurred' });
-  }
-});
+//     // Respond with the updated reply
+//     res.status(200).json({ message: 'Reply updated', updatedReply: reply });
+//   } catch (error) {
+//     console.error(error); // Log the error for debugging
+//     res.status(500).json({ error: 'An unexpected error occurred' });
+//   }
+// });
 
-router.delete('/:emailId/replies/:replyId', async (req, res) => {
-  try {
-    const email = await Email.findById(req.params.emailId);
-    email.replies.remove({ _id: req.params.replyId });
-    await email.save();
-    res.status(200).json({ message: "Reply deleted", email })
-  } catch (error) {
-    res.status(500).json(error)
-  }
-});
+// router.delete('/:emailId/replies/:replyId', async (req, res) => {
+//   try {
+//     const email = await Email.findById(req.params.emailId);
+//     email.replies.remove({ _id: req.params.replyId });
+//     await email.save();
+//     res.status(200).json({ message: "Reply deleted", email })
+//   } catch (error) {
+//     res.status(500).json(error)
+//   }
+// });
 
 
 module.exports = router;

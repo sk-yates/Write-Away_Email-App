@@ -12,6 +12,7 @@ router.use(verifyToken);
 router.post('/', async (req, res) => {
   try {
     req.body.author = req.user._id;
+    req.body.currentFolder = "drafts";
     const reply = await Reply.create(req.body);
     reply._doc.author = req.user;
     res.status(201).json(reply);

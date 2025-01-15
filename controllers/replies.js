@@ -12,7 +12,6 @@ router.use(verifyToken);
 router.post('/', async (req, res) => {
   try {
     req.body.author = req.user._id;
-    req.body.currentFolder = "drafts";
     const reply = await Reply.create(req.body);
     reply._doc.author = req.user;
     res.status(201).json(reply);
@@ -71,7 +70,7 @@ router.put('/:replyId', async (req, res) => {
 });
 
 // Student view of Reply - Update
-router.delete('/:replyId', async (req, res) => {
+router.delete('/drafts/:replyId', async (req, res) => {
   try {
     const { replyId } = req.params;
     const deletedReply = await Reply.findByIdAndDelete(replyId);

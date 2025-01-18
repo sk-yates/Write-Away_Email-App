@@ -9,7 +9,7 @@ const SALT_LENGTH = 12;
 
 router.post('/signup', async (req, res) => {
     try {
-        const { username, password, role = 'student', createdBy, assignedTeacher } = req.body;  // Default role to 'student' if not provided
+        const { username, password, role = 'student', createdBy = "677acb98614a414dca24c9c9", assignedTeacher = "677ad68c614a414dca24c9cc" } = req.body;  // Default role to 'student' if not provided
 
         // Validate input
         if (!username || !password || !role) {

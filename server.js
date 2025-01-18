@@ -19,7 +19,7 @@ mongoose.connection.on('connected', () => {
 app.use(express.json());
 
 app.use(cors({
-    origin: [ 'http://localhost:5173', 'http://127.0.0.1:5173' ], // Frontend URL
+    origin: [ 'http://localhost:5173', 'http://127.0.0.1:5173','https://678c31c53960ed28a726077a--write-away-email-practice.netlify.app' ], // Frontend URL
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: 'Content-Type, Authorization'
 }));

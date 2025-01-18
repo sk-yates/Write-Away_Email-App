@@ -16,9 +16,9 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-app.use(express.json());
-
 app.use(cors());
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Backend is working!');
